@@ -64,6 +64,15 @@ class GDash
       erb :index
     end
 
+    get '/listcategory/:category' do
+      top_level = { params[:category] => @top_level[params[:category]] }
+      if top_level.empty?
+        @error = "No dashboards found in the templates directory"
+      end
+
+      erb :index, :locals => { :top_level => top_level }
+    end
+
     get '/:category/:dash/details/:name' do
       if @top_level["#{params[:category]}"].list.include?(params[:dash])
         @dashboard = @top_level[@params[:category]].dashboard(params[:dash])
