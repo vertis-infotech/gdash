@@ -16,6 +16,6 @@ if config[:username] && config[:password]
   end
 end
 
-map config[:route_prefix] do
+map (config[:options][:prefix] || "/") do
   run GDash::SinatraApp.new(config[:graphite], config[:templatedir], config[:options])
 end
